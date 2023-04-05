@@ -91,25 +91,25 @@ public class Cliente {
             novosDadosCliente.setTelefone(cliente.getTelefone());
         }
         Endereco endereco = new Endereco();
-        if (novosDadosCliente.getEndereco().getLogradouro() == null) {
+        if (novosDadosCliente.getEndereco().getLogradouro() == null || novosDadosCliente.getEndereco().getLogradouro().isEmpty()) {
             endereco.setLogradouro(cliente.getEndereco().getLogradouro());
         }else{
             endereco.setLogradouro(novosDadosCliente.getEndereco().getLogradouro());
         }
-        if (novosDadosCliente.getEndereco().getNumero() == null) {
-            endereco.setLogradouro(cliente.getEndereco().getNumero());
+        if (novosDadosCliente.getEndereco().getNumero() == null || novosDadosCliente.getEndereco().getNumero().isEmpty()) {
+            endereco.setNumero(cliente.getEndereco().getNumero());
         }else{
-            endereco.setLogradouro(novosDadosCliente.getEndereco().getNumero());
+            endereco.setNumero(novosDadosCliente.getEndereco().getNumero());
         }
-        if (novosDadosCliente.getEndereco().getCep() == null) {
-            endereco.setLogradouro(cliente.getEndereco().getCep());
+        if (novosDadosCliente.getEndereco().getCep() == null || novosDadosCliente.getEndereco().getCep().isEmpty()) {
+            endereco.setCep(cliente.getEndereco().getCep());
         }else{
-            endereco.setLogradouro(novosDadosCliente.getEndereco().getCep());
+            endereco.setCep(novosDadosCliente.getEndereco().getCep());
         }
-        if (novosDadosCliente.getEndereco().getBairro() == null) {
-            endereco.setLogradouro(cliente.getEndereco().getBairro());
+        if (novosDadosCliente.getEndereco().getBairro() == null || novosDadosCliente.getEndereco().getBairro().isEmpty()) {
+            endereco.setBairro(cliente.getEndereco().getBairro());
         }else{
-            endereco.setLogradouro(novosDadosCliente.getEndereco().getBairro());
+            endereco.setBairro(novosDadosCliente.getEndereco().getBairro());
         }
         novosDadosCliente.setEndereco(endereco);
         if (novosDadosCliente.getRendimentoMensal() == null) {
