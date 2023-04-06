@@ -28,7 +28,7 @@ public class Cliente {
     @NotNull(message = "RENDIMENTO MENSAL NULL")
     private BigDecimal rendimentoMensal;
     @Transient
-    @OneToMany(mappedBy = "TBL_CLIENTE")
+    @OneToMany(mappedBy = "cliente")
     private List<Emprestimo> emprestimos = new ArrayList<>();
 
     public Cliente() {
@@ -81,6 +81,14 @@ public class Cliente {
 
     public void setRendimentoMensal(BigDecimal rendimentoMensal) {
         this.rendimentoMensal = rendimentoMensal;
+    }
+
+    public List<Emprestimo> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public void setEmprestimos(List<Emprestimo> emprestimos) {
+        this.emprestimos = emprestimos;
     }
 
     public static Cliente validaDados(Cliente cliente, Cliente novosDadosCliente) {
