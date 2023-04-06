@@ -31,10 +31,8 @@ public class EmprestimoController {
             // Set cpf do cliente no emprestimo
             emprestimo.setCpfCliente(cpf);
 
-            BigDecimal rendimentoMensal = cliente.getRendimentoMensal();
-            List<Emprestimo> emprestimos = service.buscarEmprestimosByCpf(cpf);
-
             // Calcula valor final do emprestimo
+            List<Emprestimo> emprestimos = service.buscarEmprestimosByCpf(cpf);
             Relacionamento relacionamento = emprestimo.getRelacionamento();
             BigDecimal valorFinal = relacionamento.calculaValorFinal(emprestimo.getValorInicial(), emprestimos);
             emprestimo.setValorFinal(valorFinal);
@@ -49,6 +47,8 @@ public class EmprestimoController {
                 total = total.add(emp.getValorFinal());
             }
 
+            //Valida se o cliente pode abrir emprestimo de acordo com o seu rendimento mensal
+            BigDecimal rendimentoMensal = cliente.getRendimentoMensal();
             if (rendimentoMensal.multiply(BigDecimal.TEN).compareTo(total) < 0) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "VALOR TOTAL DOS EMPRESTIMOS 10X MAIOR QUE O RENDIMENTO MENSAL DO CLIENTE");
             } else {

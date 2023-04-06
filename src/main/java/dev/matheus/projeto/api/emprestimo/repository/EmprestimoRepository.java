@@ -9,6 +9,5 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer>
 
     List<Emprestimo> findAllByCpfCliente (String cpf);
     List<Emprestimo> findByCpfClienteAndId (String cpf, Integer id);
-
     void deleteByCpfClienteAndId (String cpf, Integer id);
 }

@@ -1,5 +1,6 @@
 package dev.matheus.projeto.api.emprestimo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import dev.matheus.projeto.api.emprestimo.enums.Relacionamento;
 
 import javax.persistence.*;
@@ -19,7 +20,9 @@ public class Emprestimo {
     private BigDecimal valorFinal;
     @Enumerated(EnumType.STRING)
     private Relacionamento relacionamento;
+    @JsonFormat(pattern="dd/MM/yyyy")
     private LocalDate dataInicial;
+    @JsonFormat(pattern="dd/MM/yyyy")
     private LocalDate dataFinal;
 
     public Emprestimo(){
@@ -79,4 +82,10 @@ public class Emprestimo {
     public void setDataFinal(LocalDate dataFinal) {
         this.dataFinal = dataFinal;
     }
+
+    public static String localDateToString(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return date.format(formatter);
+    }
+
 }
