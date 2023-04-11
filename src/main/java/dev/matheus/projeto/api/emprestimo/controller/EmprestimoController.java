@@ -1,5 +1,6 @@
 package dev.matheus.projeto.api.emprestimo.controller;
 
+import dev.matheus.projeto.api.emprestimo.dto.response.ClienteResponseDTO;
 import dev.matheus.projeto.api.emprestimo.entity.Cliente;
 import dev.matheus.projeto.api.emprestimo.entity.Emprestimo;
 import dev.matheus.projeto.api.emprestimo.enums.Relacionamento;
@@ -24,7 +25,7 @@ public class EmprestimoController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/clientes/{cpf}/emprestimos")
     public void cadastrarEmprestimo(@RequestBody @Valid Emprestimo emprestimo, @PathVariable String cpf) {
-        Cliente cliente = clienteController.buscarByCpf(cpf);
+        ClienteResponseDTO cliente = clienteController.buscarByCpf(cpf);
 
         if (cliente != null) {
 

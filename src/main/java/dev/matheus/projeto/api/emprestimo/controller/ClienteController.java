@@ -1,5 +1,7 @@
 package dev.matheus.projeto.api.emprestimo.controller;
 
+import dev.matheus.projeto.api.emprestimo.dto.request.ClienteRequestDTO;
+import dev.matheus.projeto.api.emprestimo.dto.response.ClienteResponseDTO;
 import dev.matheus.projeto.api.emprestimo.entity.Cliente;
 import dev.matheus.projeto.api.emprestimo.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +17,19 @@ public class ClienteController {
     private ClienteService service;
 
     @RequestMapping(method = RequestMethod.POST, value = "/clientes")
-    public void cadastrarCliente(@RequestBody @Valid Cliente cliente) {
-        service.cadastrarCliente(cliente);
+    public void cadastrarCliente(@RequestBody @Valid ClienteRequestDTO clienteDTO) {
+        service.cadastrarCliente(clienteDTO.build());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/clientes/{cpf}")
-    public Cliente buscarByCpf(@PathVariable String cpf){
-        return service.buscarByCpf(cpf);
+    public ClienteResponseDTO buscarByCpf(@PathVariable String cpf){
+        return new ClienteResponseDTO(service.buscarByCpf(cpf));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/clientes")
-    public List<Cliente> buscarTodosClientes(){
-        return service.buscarTodosClientes();
+    public List<ClienteResponseDTO> buscarTodosClientes(){
+        List<Cliente> clientes = service.buscarTodosClientes();
+        return ClienteResponseDTO.convert(clientes);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/clientes/{cpf}")
@@ -35,8 +38,8 @@ public class ClienteController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/clientes/{cpf}")
-    public void atualizarCliente(@RequestBody Cliente novosDadosCliente, @PathVariable String cpf){
-        service.atualizarCliente(novosDadosCliente, cpf);
+    public void atualizarCliente(@RequestBody ClienteRequestDTO novosDadosCliente, @PathVariable String cpf){
+        service.atualizarCliente(novosDadosCliente.build(), cpf);
     }
 
 }
