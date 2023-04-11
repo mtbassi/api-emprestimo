@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import dev.matheus.projeto.api.emprestimo.enums.Relacionamento;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "TBL_EMPRESTIMO")
@@ -16,11 +16,14 @@ public class Emprestimo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String cpfCliente;
+    @NotNull(message = "VALOR INICIAL NULL")
     private BigDecimal valorInicial;
     private BigDecimal valorFinal;
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "RELACIONAMENTO NULL")
     private Relacionamento relacionamento;
     @JsonFormat(pattern="dd/MM/yyyy")
+    @NotNull(message = "DATA INICIAL NULL")
     private LocalDate dataInicial;
     @JsonFormat(pattern="dd/MM/yyyy")
     private LocalDate dataFinal;
