@@ -23,10 +23,10 @@ public class Emprestimo {
     @NotNull(message = "RELACIONAMENTO NULL")
     private Relacionamento relacionamento;
     @JsonFormat(pattern="dd/MM/yyyy")
-    @NotNull(message = "DATA INICIAL NULL")
-    private LocalDate dataInicial;
-    @JsonFormat(pattern="dd/MM/yyyy")
     private LocalDate dataFinal;
+    @JsonFormat(pattern="dd/MM/yyyy")
+    @NotNull(message = "DATA FINAL NULL")
+    private LocalDate dataInicial;
 
     public Emprestimo(){
         this.dataInicial = LocalDate.now();
