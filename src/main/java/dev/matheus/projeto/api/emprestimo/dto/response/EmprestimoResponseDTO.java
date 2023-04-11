@@ -1,14 +1,9 @@
 package dev.matheus.projeto.api.emprestimo.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import dev.matheus.projeto.api.emprestimo.entity.Cliente;
 import dev.matheus.projeto.api.emprestimo.entity.Emprestimo;
 import dev.matheus.projeto.api.emprestimo.enums.Relacionamento;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
