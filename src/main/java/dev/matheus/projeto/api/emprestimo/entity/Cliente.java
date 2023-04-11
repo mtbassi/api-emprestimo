@@ -3,6 +3,7 @@ package dev.matheus.projeto.api.emprestimo.entity;
 import dev.matheus.projeto.api.emprestimo.record.Endereco;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -24,6 +25,7 @@ public class Cliente {
     private String telefone;
     @Embedded
     @NotNull(message = "ENDERECO NULL")
+    @Valid
     private Endereco endereco;
     @NotNull(message = "RENDIMENTO MENSAL NULL")
     private BigDecimal rendimentoMensal;
