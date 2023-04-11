@@ -3,8 +3,6 @@ package dev.matheus.projeto.api.emprestimo.dto.request;
 import dev.matheus.projeto.api.emprestimo.entity.Cliente;
 import dev.matheus.projeto.api.emprestimo.entity.Emprestimo;
 import dev.matheus.projeto.api.emprestimo.record.Endereco;
-import lombok.Data;
-import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Embedded;

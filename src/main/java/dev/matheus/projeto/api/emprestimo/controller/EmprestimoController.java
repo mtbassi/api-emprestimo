@@ -1,6 +1,8 @@
 package dev.matheus.projeto.api.emprestimo.controller;
 
+import dev.matheus.projeto.api.emprestimo.dto.request.EmprestimoRequestDTO;
 import dev.matheus.projeto.api.emprestimo.dto.response.ClienteResponseDTO;
+import dev.matheus.projeto.api.emprestimo.dto.response.EmprestimoResponseDTO;
 import dev.matheus.projeto.api.emprestimo.entity.Cliente;
 import dev.matheus.projeto.api.emprestimo.entity.Emprestimo;
 import dev.matheus.projeto.api.emprestimo.enums.Relacionamento;
@@ -24,7 +26,7 @@ public class EmprestimoController {
     private ClienteController clienteController;
 
     @RequestMapping(method = RequestMethod.POST, value = "/clientes/{cpf}/emprestimos")
-    public void cadastrarEmprestimo(@RequestBody @Valid Emprestimo emprestimo, @PathVariable String cpf) {
+    public void cadastrarEmprestimo(@RequestBody @Valid EmprestimoRequestDTO emprestimo, @PathVariable String cpf) {
         ClienteResponseDTO cliente = clienteController.buscarByCpf(cpf);
 
         if (cliente != null) {
@@ -39,7 +41,7 @@ public class EmprestimoController {
             emprestimo.setValorFinal(valorFinal);
 
             // Adicionar o novo emprestimo a lista de emprestimo do cliente
-            emprestimos.add(emprestimo);
+            emprestimos.add(emprestimo.build());
             cliente.setEmprestimos(emprestimos);
 
             //Calcula o valor total de todos os emprestimos
@@ -53,7 +55,7 @@ public class EmprestimoController {
             if (rendimentoMensal.multiply(BigDecimal.TEN).compareTo(total) < 0) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "VALOR TOTAL DOS EMPRESTIMOS 10X MAIOR QUE O RENDIMENTO MENSAL DO CLIENTE");
             } else {
-                service.cadastrarEmprestimo(emprestimo);
+                service.cadastrarEmprestimo(emprestimo.build());
             }
 
         } else {
@@ -62,13 +64,15 @@ public class EmprestimoController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/clientes/{cpf}/emprestimos")
-    public List<Emprestimo> buscarEmprestimosByCpf(@PathVariable String cpf){
-        return service.buscarEmprestimosByCpf(cpf);
+    public List<EmprestimoResponseDTO> buscarEmprestimosByCpf(@PathVariable String cpf){
+        List<Emprestimo> emprestimos = service.buscarEmprestimosByCpf(cpf);
+        return EmprestimoResponseDTO.convert(emprestimos);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/clientes/{cpf}/emprestimos/{id}")
-    public List<Emprestimo> buscarEmprestimosById(@PathVariable String cpf, @PathVariable Integer id){
-        return service.buscarEmprestimosById(cpf, id);
+    public List<EmprestimoResponseDTO> buscarEmprestimosById(@PathVariable String cpf, @PathVariable Integer id){
+        List<Emprestimo> emprestimos = service.buscarEmprestimosById(cpf, id);
+        return EmprestimoResponseDTO.convert(emprestimos);
     }
 
     @Transactional

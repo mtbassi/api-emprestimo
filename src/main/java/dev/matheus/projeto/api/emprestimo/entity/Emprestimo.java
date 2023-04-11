@@ -15,6 +15,7 @@ public class Emprestimo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull(message = "CPF NULL")
     private String cpfCliente;
     @NotNull(message = "VALOR INICIAL NULL")
     private BigDecimal valorInicial;
@@ -23,9 +24,9 @@ public class Emprestimo {
     @NotNull(message = "RELACIONAMENTO NULL")
     private Relacionamento relacionamento;
     @JsonFormat(pattern="dd/MM/yyyy")
+    @NotNull(message = "DATA FINAL NULL")
     private LocalDate dataFinal;
     @JsonFormat(pattern="dd/MM/yyyy")
-    @NotNull(message = "DATA FINAL NULL")
     private LocalDate dataInicial;
 
     public Emprestimo(){
